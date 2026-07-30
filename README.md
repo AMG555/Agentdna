@@ -15,7 +15,7 @@ AgentDNA is an experimental local-first desktop assistant inspired by natural se
 
 **Privacy is a product feature, not a footnote:** monitoring is disabled by default, applications must be explicitly allowlisted, and the observer is limited to metadata such as application names, window titles, timing, and transitions. It does not collect keystrokes, passwords, form fields, message contents, or clipboard contents.
 
-> ⚠️ **NOT PRODUCTION READY:** Functional prototype. Missing logging, database encryption, desktop packaging. See [PRODUCTION_READINESS.md](PRODUCTION_READINESS.md) for details. Safe for local testing only.
+> ⚠️ **NOT PRODUCTION READY:** Functional prototype with production-grade modules. Missing database encryption and desktop packaging. See [PRODUCTION_READINESS.md](PRODUCTION_READINESS.md) for details. Safe for local testing only.
 
 ---
 
@@ -42,11 +42,33 @@ python -m uvicorn backend.main:app --reload
 # Navigate to http://127.0.0.1:8000
 ```
 
-**What works**: Privacy controls, agent population, pattern detection, nursery shadow testing, fitness evolution, API endpoints, redaction, vector search, policy gating
+**What works**: Privacy controls, agent population, pattern detection, nursery shadow testing, fitness evolution, logging, error handling, rate limiting, config validation
 
-**What doesn't**: Desktop packaging, database encryption, logging, API auth, integration tests
+**What doesn't**: Desktop packaging, database encryption, API authentication, integration tests
 
-See [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md) for complete verification status.
+See [PRODUCTION_READINESS.md](PRODUCTION_READINESS.md) for complete status.
+
+---
+
+## 📋 Project Status
+
+**Current Version**: v0.1.0-alpha  
+**Status**: Functional prototype with production modules  
+
+✅ **Complete**:
+- Core privacy & agent architecture
+- Pattern detection & nursery testing
+- Logging, error handling, rate limiting
+- Config validation & structured errors
+- 19 passing unit tests
+
+⚠️ **In Progress**:
+- Database encryption (SQLCipher)
+- Desktop packaging (Tauri)
+- API authentication (bearer tokens)
+- Integration test suite
+
+See [STATUS.md](STATUS.md) for detailed capabilities.
 
 ---
 

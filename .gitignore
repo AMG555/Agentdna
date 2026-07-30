@@ -9,6 +9,7 @@ __pycache__/
 .env
 backend/agentdna.db
 backend/vector_index/
+backend/logs/
 *.sqlite
 *.sqlite3
 *.db
@@ -23,3 +24,8 @@ Thumbs.db
 *.log
 exports/
 backups/
+
+# Internal documentation (not for public repo)
+DEPLOYMENT_CHECKLIST.md
+VERIFICATION_REPORT.md
+internal/
