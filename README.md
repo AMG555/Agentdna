@@ -5,15 +5,48 @@
 > Observe patterns. Grow helpful agents. Retire the noise.
 
 [![Status: Prototype](https://img.shields.io/badge/status-prototype-2dd4bf?style=for-the-badge)](STATUS.md)
-[![Tests](https://img.shields.io/badge/tests-8%20passing-22c55e?style=for-the-badge)](TESTING.md)
+[![Tests](https://img.shields.io/badge/tests-19%20passing-22c55e?style=for-the-badge)](TESTING.md)
 [![Privacy](https://img.shields.io/badge/privacy-local--first-8b5cf6?style=for-the-badge)](docs/architecture.md)
 [![Python](https://img.shields.io/badge/python-3.11%2B-3776ab?style=for-the-badge&logo=python&logoColor=white)](requirements.txt)
+[![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
+[![Code Style](https://img.shields.io/badge/code%20style-compact-lightgrey?style=for-the-badge)](CODE_OF_CONDUCT.md)
 
 AgentDNA is an experimental local-first desktop assistant inspired by natural selection. Instead of forcing users to write automation rules, it is designed to discover useful work patterns, propose small specialized agents, test them quietly, and let feedback determine which agents survive.
 
 **Privacy is a product feature, not a footnote:** monitoring is disabled by default, applications must be explicitly allowlisted, and the observer is limited to metadata such as application names, window titles, timing, and transitions. It does not collect keystrokes, passwords, form fields, message contents, or clipboard contents.
 
 > ⚠️ **NOT PRODUCTION READY:** Functional prototype. Missing logging, database encryption, desktop packaging. See [PRODUCTION_READINESS.md](PRODUCTION_READINESS.md) for details. Safe for local testing only.
+
+---
+
+## 🚀 Quick Start
+
+```bash
+# Clone repository
+git clone https://github.com/amg555/Agentdna.git
+cd Agentdna
+
+# Install dependencies (Python 3.11+)
+pip install -r requirements.txt
+
+# Copy environment config
+cp .env.example .env
+
+# Run tests
+python -m unittest tests.test_core -v
+
+# Start local server
+python -m uvicorn backend.main:app --reload
+
+# Open dashboard
+# Navigate to http://127.0.0.1:8000
+```
+
+**What works**: Privacy controls, agent population, pattern detection, nursery shadow testing, fitness evolution, API endpoints, redaction, vector search, policy gating
+
+**What doesn't**: Desktop packaging, database encryption, logging, API auth, integration tests
+
+See [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md) for complete verification status.
 
 ---
 
