@@ -1,0 +1,25 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Local data and secrets
+.env
+backend/agentdna.db
+backend/vector_index/
+*.sqlite
+*.sqlite3
+*.db
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs and exports
+*.log
+exports/
+backups/

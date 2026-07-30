@@ -1,0 +1,1 @@
+"""Optional local/cloud model adapters. No provider is required for safe local operation."""

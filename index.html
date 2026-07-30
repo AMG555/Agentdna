@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#08111d" />
+  <title>AgentDNA — Adaptive personal AI</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark"><span></span><span></span><span></span></div><div><strong>Agent<span>DNA</span></strong><small>PERSONAL AI SWARM</small></div></div>
+      <div class="live-pill"><i></i> EVOLUTION ONLINE <b>⌁</b></div>
+      <nav>
+        <p class="nav-label">COMMAND CENTER</p>
+        <button class="nav-item active" data-view="overview"><span>⌂</span> Overview</button>
+        <button class="nav-item" data-view="agents"><span>◈</span> Agent population <em>12</em></button>
+        <button class="nav-item" data-view="patterns"><span>⌁</span> Observed patterns <em>8</em></button>
+        <button class="nav-item" data-view="lineage"><span>◎</span> Evolution & lineage</button>
+        <p class="nav-label space">CONTROL ROOM</p>
+        <button class="nav-item" data-view="privacy"><span>♢</span> Privacy & permissions</button>
+        <button class="nav-item" data-view="settings"><span>⚙</span> Settings</button>
+      </nav>
+      <div class="sidebar-foot"><div class="shield">✓</div><div><b>Your data stays local</b><small>Nothing leaves this device without consent.</small></div></div>
+    </aside>
+    <main class="main">
+      <header class="topbar"><div class="crumb">COMMAND CENTER <span>/</span> <b id="viewName">OVERVIEW</b></div><div class="top-actions"><div class="sync"><i></i> Syncing locally</div><button class="icon-btn" title="Notifications">♧<sup>2</sup></button><div class="avatar">AS</div></div></header>
+      <section id="content"></section>
+    </main>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
