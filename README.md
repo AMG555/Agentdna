@@ -8,8 +8,10 @@
 [![Tests](https://img.shields.io/badge/tests-19%20passing-22c55e?style=for-the-badge)](TESTING.md)
 [![Privacy](https://img.shields.io/badge/privacy-local--first-8b5cf6?style=for-the-badge)](docs/architecture.md)
 [![Python](https://img.shields.io/badge/python-3.11%2B-3776ab?style=for-the-badge&logo=python&logoColor=white)](requirements.txt)
-[![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
-[![Code Style](https://img.shields.io/badge/code%20style-compact-lightgrey?style=for-the-badge)](CODE_OF_CONDUCT.md)
+[![License: MIT](https://img.shields.io/github/license/amg555/Agentdna?style=for-the-badge)](LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/amg555/Agentdna?style=for-the-badge)](https://github.com/amg555/Agentdna/stargazers)
+[![Issues](https://img.shields.io/github/issues/amg555/Agentdna?style=for-the-badge)](https://github.com/amg555/Agentdna/issues)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](CONTRIBUTING.md)
 
 AgentDNA is an experimental local-first desktop assistant inspired by natural selection. Instead of forcing users to write automation rules, it is designed to discover useful work patterns, propose small specialized agents, test them quietly, and let feedback determine which agents survive.
 

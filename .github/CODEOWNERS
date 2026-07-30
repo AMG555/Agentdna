@@ -1,0 +1,27 @@
+# Code owners for automatic review requests
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for everything
+* @amg555
+
+# Backend core modules
+/backend/main.py @amg555
+/backend/agents.py @amg555
+/backend/privacy/ @amg555
+/backend/observer/ @amg555
+
+# Security-sensitive files
+/backend/logging_config.py @amg555
+/backend/error_handler.py @amg555
+/backend/rate_limiter.py @amg555
+/backend/config_validator.py @amg555
+
+# Documentation
+/docs/ @amg555
+README.md @amg555
+SECURITY.md @amg555
+PRODUCTION_READINESS.md @amg555
+
+# Configuration
+.github/ @amg555
+requirements.txt @amg555
