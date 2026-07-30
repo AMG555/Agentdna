@@ -6,11 +6,16 @@ applications must be explicitly allowed, and the API is meant for loopback use.
 from contextlib import asynccontextmanager
 from pathlib import Path
 import asyncio
+import logging
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field, field_validator
+from .logging_config import setup_logging, get_logger
+from .config_validator import validate_config, ConfigError
+from .error_handler import setup_error_handlers
+from .rate_limiter import rate_limiter, RateLimitError
 from .observer.privacy_guard import PrivacyGuard
 from .observer.activity_monitor import ActivityMonitor
 from .evolution.evolution_engine import EvolutionEngine
@@ -29,6 +34,18 @@ from .events import event_bus
 from .automation_executor import executor
 
 ROOT=Path(__file__).resolve().parents[1]
+
+# Initialize logging and validate config
+try:
+    setup_logging(log_level='INFO', enable_json=False)
+    validate_config()
+except ConfigError as e:
+    print(f'FATAL: {e}')
+    raise SystemExit(1)
+
+logger=get_logger(__name__)
+logger.info('AgentDNA API starting...')
+
 privacy=PrivacyGuard(); monitor=ActivityMonitor(privacy); evolution=EvolutionEngine(); clients=set()
 
 async def evolution_loop():
@@ -38,14 +55,21 @@ async def evolution_loop():
 
 @asynccontextmanager
 async def lifespan(app):
+    logger.info('Starting background tasks...')
     tasks=[asyncio.create_task(monitor.run()), asyncio.create_task(evolution_loop())]
-    try: yield
+    try: 
+        yield
+    except Exception as e:
+        logger.error(f'Lifespan error: {e}', exc_info=True)
     finally:
+        logger.info('Shutting down background tasks...')
         for task in tasks: task.cancel()
         await asyncio.gather(*tasks, return_exceptions=True)
+        logger.info('Shutdown complete')
 
 app=FastAPI(title='AgentDNA Local API', version='1.0.0', lifespan=lifespan)
 app.add_middleware(CORSMiddleware, allow_origins=['http://127.0.0.1:8000'], allow_methods=['GET','POST','PUT','DELETE'], allow_headers=['Content-Type'])
+setup_error_handlers(app)
 
 class AppPermission(BaseModel):
     app_name:str=Field(min_length=1,max_length=120)
@@ -64,7 +88,9 @@ class NurseryObservation(BaseModel): agent_id:str=Field(min_length=1,max_length=
 class ToolRequest(BaseModel): tool:str=Field(min_length=1,max_length=80); argument:str=Field(min_length=1,max_length=1000); confirmed:bool=False
 
 @app.get('/api/health')
-def health(): return {'status':'ok','monitoring':privacy.monitoring_enabled,'version':'1.0.0'}
+def health(): 
+    logger.debug('Health check requested')
+    return {'status':'ok','monitoring':privacy.monitoring_enabled,'version':'1.0.0'}
 @app.get('/api/privacy')
 def get_privacy(): return privacy.to_dict()
 @app.post('/api/privacy/pause')
@@ -72,10 +98,14 @@ def pause(): privacy.pause(); store.audit('monitoring_paused'); return privacy.t
 @app.post('/api/privacy/resume')
 def resume(): privacy.resume(); store.audit('monitoring_resumed'); return privacy.to_dict()
 @app.post('/api/privacy/allow')
-def allow(p:AppPermission): privacy.allow(p.app_name); store.audit('app_allowed',p.app_name); return privacy.to_dict()
+def allow(p:AppPermission): 
+    logger.info(f'Allowing app: {p.app_name}')
+    privacy.allow(p.app_name); store.audit('app_allowed',p.app_name); return privacy.to_dict()
 @app.delete('/api/privacy/data')
 def delete_data():
+    logger.warning('User requested data deletion')
     monitor.clear(); store.clear()
+    logger.info('All user data deleted')
     return {'deleted':True}
 @app.get('/api/activity')
 def activity(): return [x.to_dict() for x in monitor.snapshots[-100:]]
